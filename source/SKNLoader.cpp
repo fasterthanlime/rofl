@@ -80,7 +80,7 @@ IMesh *SKN_load(char *path) {
 			rawVerts[i].normals[0],
 			rawVerts[i].normals[1],
 			rawVerts[i].normals[2],
-			SColor(),
+			SColor(255, 255, 255, 255),
 			rawVerts[i].texcoords[0],
 			rawVerts[i].texcoords[1]
 		);

@@ -41,6 +41,8 @@ int main() {
 	IVideoDriver* driver = device->getVideoDriver();
 	ISceneManager* smgr = device->getSceneManager();
 
+	smgr->setAmbientLight(SColorf(0.3,0.3,0.3,1));
+
 	IMesh *mesh = SKN_load("data/Characters/Akali/Akali.skn");
 	IMeshSceneNode* node = smgr->addMeshSceneNode(mesh);
 	if (node) {
@@ -57,7 +59,7 @@ int main() {
 	float angle = 0.0f;
 
 	while(device->run()) {
-		driver->beginScene(true, true, SColor(255, 255, 255, 255));
+		driver->beginScene(true, true, SColor(0, 0, 0, 0));
 
 		node->setRotation(vector3df(0, angle, 0));
 
