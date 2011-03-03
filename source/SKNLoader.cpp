@@ -15,6 +15,11 @@ typedef struct SKNMaterial {
 	int startVertex, numVertices, startIndex, numIndices;
 } SKNMaterial;
 
+ITexture *DDS_loadTexture(IVideoDriver* driver, char *texturePath) {
+	DdsImage *ddsImage = new DdsImage(texturePath, driver);
+	return driver->addTexture(texturePath, ddsImage->getImage());
+}
+
 IMesh *SKN_load(char *path) {
 
 	FILE *file = fopen(path, "rb");
@@ -100,5 +105,17 @@ IMesh *SKN_load(char *path) {
 	fclose(file);
 	
 	return mesh;
+	
+}
+
+IMeshSceneNode* SKN_addCharacter(IVideoDriver* driver, ISceneManager* smgr, char *skinPath, char *texturePath) {
+	
+	IMesh *mesh = SKN_load(skinPath);
+	IMeshSceneNode* node = smgr->addMeshSceneNode(mesh);
+	if (node) {
+		node->setMaterialFlag(EMF_LIGHTING, true);
+		node->setMaterialTexture(0, DDS_loadTexture(driver, texturePath));
+	}
+	return node;
 	
 }

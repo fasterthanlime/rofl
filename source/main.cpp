@@ -1,6 +1,5 @@
 #include <irrlicht.h>
 #include "SKNLoader.h"
-#include "ddslib/DdsImage.h"
 
 using namespace irr;
 using namespace irrutils;
@@ -41,27 +40,23 @@ int main() {
 	IVideoDriver* driver = device->getVideoDriver();
 	ISceneManager* smgr = device->getSceneManager();
 
-	smgr->setAmbientLight(SColorf(0.3,0.3,0.3,1));
+	smgr->setAmbientLight(SColorf(1.0, 1.0, 1.0, 1));
 
-	IMesh *mesh = SKN_load("data/Characters/Akali/Akali.skn");
-	IMeshSceneNode* node = smgr->addMeshSceneNode(mesh);
-	if (node) {
-		node->setMaterialFlag(EMF_LIGHTING, false);
-		
-		char *texturePath = "data/Characters/Akali/Akali_Red_TX_CM.dds";
-		DdsImage *ddsImage = new DdsImage(texturePath, driver);
-		ITexture *texture = driver->addTexture(texturePath, ddsImage->getImage());
-		node->setMaterialTexture(0, texture);
-	}
+	IMeshSceneNode *node = SKN_addCharacter(driver, smgr, "data/Characters/Akali/Akali.skn", "data/Characters/Akali/Akali_Red_TX_CM.dds");
+	node->setPosition(vector3df(-70, 0, 0));
+	
+	IMeshSceneNode *node2 = SKN_addCharacter(driver, smgr, "data/Characters/MasterYi/MasterYi.skn", "data/Characters/MasterYi/AssassinMasterYi.dds");
+	node2->setPosition(vector3df(70, 0, 0));
 
-	smgr->addCameraSceneNode(0, vector3df(0, 160, 150), vector3df(0, 150, 60));
+	smgr->addCameraSceneNode(0, vector3df(0, 150, 250), vector3df(0, 130, 60));
 
 	float angle = 0.0f;
 
 	while(device->run()) {
 		driver->beginScene(true, true, SColor(0, 0, 0, 0));
 
-		node->setRotation(vector3df(0, angle, 0));
+		node-> setRotation(vector3df(0, angle, 0));
+		node2->setRotation(vector3df(0, angle, 0));
 
 		smgr->drawAll();
 		driver->endScene();
