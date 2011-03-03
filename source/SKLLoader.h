@@ -19,6 +19,13 @@ typedef struct SKL_Bone {
                         //                     z1 z2 z3 zt]
 } SDL_Bone;
 
-void SKL_load(char *path);
+typedef struct SKL_Skeleton {
+	int numObjects; // number of objects (skeletons)
+    int skeletonHash; // unique id number?
+    int numElements; // number of bones
+	SKL_Bone *bones;
+} SDL_Skeleton;
+
+SKL_Skeleton SKL_load(char *path);
 
 #endif // ROFL_SKLLoader_H
