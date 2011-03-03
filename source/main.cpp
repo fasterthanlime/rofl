@@ -1,14 +1,15 @@
 #include <irrlicht.h>
+#include "SKNLoader.h"
+#include "ddslib/DdsImage.h"
 
 using namespace irr;
+using namespace irrutils;
 
 using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
-
-#include "SKNLoader.h"
 
 /*
 Allows us to build on Windows, and avoiding the console window when using main()
@@ -44,14 +45,17 @@ int main() {
 	IMeshSceneNode* node = smgr->addMeshSceneNode(mesh);
 	if (node) {
 		node->setMaterialFlag(EMF_LIGHTING, false);
-		//node->setMaterialTexture(0, driver->getTexture("../../media/sydney.bmp"));
+		
+		char *texturePath = "data/Characters/Akali/Akali_Red_TX_CM.dds";
+		DdsImage *ddsImage = new DdsImage(texturePath, driver);
+		ITexture *texture = driver->addTexture(texturePath, ddsImage->getImage());
+		node->setMaterialTexture(0, texture);
 	}
 
-	smgr->addCameraSceneNode(0, vector3df(0, 5, -5), vector3df(0,0,0));
+	smgr->addCameraSceneNode(0, vector3df(0, 160, 80), vector3df(0, 150, 60));
 
-	while(device->run())
-	{
-		driver->beginScene(true, true, SColor(255,100,101,140));
+	while(device->run()) {
+		driver->beginScene(true, true, SColor(0, 255, 255, 255));
 
 		smgr->drawAll();
 		driver->endScene();
