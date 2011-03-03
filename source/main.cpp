@@ -52,13 +52,19 @@ int main() {
 		node->setMaterialTexture(0, texture);
 	}
 
-	smgr->addCameraSceneNode(0, vector3df(0, 160, 80), vector3df(0, 150, 60));
+	smgr->addCameraSceneNode(0, vector3df(0, 160, 150), vector3df(0, 150, 60));
+
+	float angle = 0.0f;
 
 	while(device->run()) {
-		driver->beginScene(true, true, SColor(0, 255, 255, 255));
+		driver->beginScene(true, true, SColor(255, 255, 255, 255));
+
+		node->setRotation(vector3df(0, angle, 0));
 
 		smgr->drawAll();
 		driver->endScene();
+		
+		angle += 0.2f;
 	}
 
 	device->drop();
