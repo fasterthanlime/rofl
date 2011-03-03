@@ -5,7 +5,7 @@
 # Name of the executable created (.exe will be added automatically if necessary)
 Target := rofl
 # List of source files, separated by spaces
-Sources := source/main.cpp
+Sources := source/main.cpp source/SKNLoader.cpp
 # Path to Irrlicht directory, should contain include/ and lib/
 IrrlichtHome := ../irrlicht-1.7.2/
 # Path for the executable. Note that Irrlicht.dll should usually also be there for win32 systems

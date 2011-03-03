@@ -8,6 +8,8 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
+#include "SKNLoader.h"
+
 /*
 Allows us to build on Windows, and avoiding the console window when using main()
 instead of the platform-specific WinMain
@@ -38,19 +40,7 @@ int main() {
 	IVideoDriver* driver = device->getVideoDriver();
 	ISceneManager* smgr = device->getSceneManager();
 
-	IMeshBuffer *buf = new SMeshBuffer();
-	
-	S3DVertex verts[4];
-	verts[0] = S3DVertex(-1,  1, 0, 0, 0, 0, SColor(255,100,101,140), 0, 0);
-	verts[1] = S3DVertex( 1,  1, 0, 0, 0, 0, SColor(100,255,101,140), 0, 0);
-	verts[2] = S3DVertex( 1, -1, 0, 0, 0, 0, SColor(101,100,255,140), 0, 0);
-	verts[3] = S3DVertex(-1, -1, 0, 0, 0, 0, SColor(255,255,101,140), 0, 0);
-	u16 indices[6] = { 0, 1, 2, /* */ 2, 3, 0 };
-	buf->append(verts, 4, indices, 6);
-	
-	SMesh *mesh = new SMesh();
-	mesh->addMeshBuffer(buf);
-	
+	IMesh *mesh = SKN_load("data/Characters/Akali/Akali.skn");
 	IMeshSceneNode* node = smgr->addMeshSceneNode(mesh);
 	if (node) {
 		node->setMaterialFlag(EMF_LIGHTING, false);
