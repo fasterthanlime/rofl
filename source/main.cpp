@@ -60,7 +60,7 @@ int main() {
 	m.Lighting = false;
 	m.Thickness = 4.0;
 	m.setFlag(EMF_ZWRITE_ENABLE, false);
-	SColor white = SColor(128, 128, 128, 255);
+	SColor white = SColor(128, 128, 128, 128);
 
 	while(device->run()) {
 		// Draw 3D objects
