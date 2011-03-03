@@ -37,32 +37,33 @@ int main() {
 
 	IVideoDriver* driver = device->getVideoDriver();
 	ISceneManager* smgr = device->getSceneManager();
-	IGUIEnvironment* guienv = device->getGUIEnvironment();
 
-	/*
-	IAnimatedMesh* mesh = smgr->getMesh("../../media/sydney.md2");
-	if (!mesh) {
-		device->drop();
-		return 1;
-	}
-	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode( mesh );
-
+	IMeshBuffer *buf = new SMeshBuffer();
+	
+	S3DVertex verts[4];
+	verts[0] = S3DVertex(-1,  1, 0, 0, 0, 0, SColor(255,100,101,140), 0, 0);
+	verts[1] = S3DVertex( 1,  1, 0, 0, 0, 0, SColor(100,255,101,140), 0, 0);
+	verts[2] = S3DVertex( 1, -1, 0, 0, 0, 0, SColor(101,100,255,140), 0, 0);
+	verts[3] = S3DVertex(-1, -1, 0, 0, 0, 0, SColor(255,255,101,140), 0, 0);
+	u16 indices[6] = { 0, 1, 2, /* */ 2, 3, 0 };
+	buf->append(verts, 4, indices, 6);
+	
+	SMesh *mesh = new SMesh();
+	mesh->addMeshBuffer(buf);
+	
+	IMeshSceneNode* node = smgr->addMeshSceneNode(mesh);
 	if (node) {
 		node->setMaterialFlag(EMF_LIGHTING, false);
-		node->setMD2Animation(scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture("../../media/sydney.bmp") );
+		//node->setMaterialTexture(0, driver->getTexture("../../media/sydney.bmp"));
 	}
-	*/
 
-	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));
+	smgr->addCameraSceneNode(0, vector3df(0, 5, -5), vector3df(0,0,0));
 
 	while(device->run())
 	{
 		driver->beginScene(true, true, SColor(255,100,101,140));
 
 		smgr->drawAll();
-		//guienv->drawAll();
-
 		driver->endScene();
 	}
 
